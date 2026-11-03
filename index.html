@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쓰담 — 정부 지원사업 서류 도우미</title>
+<meta name="description" content="받은 서류는 알아서 정리하고, 도장은 화면에서 바로 찍어요. 지원사업 서류 준비를 제출까지 돕는 쓰담.">
+<meta property="og:title" content="쓰담 — 정부 지원사업 서류 도우미">
+<meta property="og:description" content="받은 서류는 알아서 정리하고, 도장은 화면에서 바로 찍어요.">
+<meta property="og:url" content="https://mysdm.org/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1d1d22">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #e6007e;
+    --pink-soft: #fde6f2;
+    --pink-line: #f7b6d8;
+    --ink: #1d1d22;
+    --sub: #55555f;
+    --line: #e6e6ea;
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --card: #ffffff;
+    --hero: #1d1d22;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --pink: #ff3fa4;
+      --pink-soft: #3a1a2c;
+      --pink-line: #7a2c58;
+      --ink: #f2f2f5;
+      --sub: #b4b4be;
+      --line: #33333b;
+      --bg: #141417;
+      --bg-alt: #1c1c21;
+      --card: #1c1c21;
+      --hero: #0c0c0e;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    color: var(--ink); background: var(--bg);
+    line-height: 1.6; word-break: keep-all; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* 상단 */
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--hero) 92%, transparent);
+    backdrop-filter: blur(8px); color: #fff;
+  }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+  .brand b { font-size: 20px; font-weight: 900; letter-spacing: .3px; }
+  .brand b span { color: var(--pink); }
+  .brand small { font-size: 13px; color: #b9b9c2; }
+  nav a { font-size: 14px; color: #d8d8de; text-decoration: none; margin-left: 22px; }
+  nav a:hover { color: #fff; }
+  nav a.cta { background: var(--pink); color: #fff; padding: 7px 14px; border-radius: 999px; font-weight: 700; }
+
+  /* 히어로 */
+  .hero { background: var(--hero); color: #fff; position: relative; overflow: hidden; }
+  .hero::after {
+    content: ""; position: absolute; right: -160px; top: -200px;
+    width: 560px; height: 560px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(230,0,126,.5), rgba(230,0,126,0) 70%);
+    pointer-events: none;
+  }
+  .hero .wrap { position: relative; z-index: 1; padding-top: 88px; padding-bottom: 96px; }
+  .hero h1 { font-size: clamp(32px, 6vw, 56px); line-height: 1.2; font-weight: 900; letter-spacing: -1px; }
+  .hero h1 em { font-style: normal; color: var(--pink); }
+  .hero p.lead { margin-top: 20px; font-size: clamp(16px, 2.2vw, 19px); color: #e4e4e8; max-width: 620px; }
+  .hero .actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block; padding: 13px 24px; border-radius: 999px;
+    font-weight: 700; font-size: 16px; text-decoration: none;
+  }
+  .btn.primary { background: var(--pink); color: #fff; }
+  .btn.ghost { border: 1px solid #55555f; color: #fff; }
+  .btn:hover { filter: brightness(1.08); }
+
+  /* 흐름 띠 */
+  .flow { background: var(--pink); color: #fff; }
+  .flow ol {
+    list-style: none; display: flex; flex-wrap: wrap; justify-content: space-between;
+    gap: 8px 4px; padding: 18px 0; font-weight: 700; font-size: 16px;
+  }
+  .flow li { display: flex; align-items: center; gap: 10px; }
+  .flow li:not(:last-child)::after { content: "→"; opacity: .7; font-weight: 400; margin-left: 6px; }
+
+  /* 섹션 */
+  section.block { padding: 80px 0; }
+  section.block.alt { background: var(--bg-alt); }
+  h2 {
+    font-size: clamp(24px, 3.4vw, 32px); font-weight: 900; letter-spacing: -.5px;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 32px;
+  }
+  h2::before { content: ""; width: 4px; height: 1em; background: var(--pink); border-radius: 2px; }
+
+  .who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .who div { background: var(--pink-soft); border-radius: 14px; padding: 22px 24px; font-size: 16px; font-weight: 500; }
+  .who b { display: block; font-size: 18px; color: var(--pink); margin-bottom: 6px; }
+
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 24px;
+  }
+  .ico { width: 48px; height: 48px; border-radius: 50%; background: var(--pink-soft); display: grid; place-items: center; margin-bottom: 16px; }
+  .ico svg { width: 24px; height: 24px; stroke: var(--pink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 15px; color: var(--sub); }
+
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px; list-style: none; }
+  .notes li { position: relative; padding-left: 16px; color: var(--sub); font-size: 16px; }
+  .notes li::before { content: "·"; position: absolute; left: 0; color: var(--pink); font-weight: 900; }
+  .notes b { color: var(--ink); }
+
+  .faq { display: grid; gap: 12px; }
+  details { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; }
+  summary { cursor: pointer; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--pink); font-weight: 900; }
+  details[open] summary::after { content: "−"; }
+  details p { margin-top: 10px; color: var(--sub); font-size: 15.5px; }
+
+  /* 문의 */
+  .contact { background: var(--hero); color: #fff; text-align: center; }
+  .contact .wrap { padding-top: 80px; padding-bottom: 80px; }
+  .contact h2 { justify-content: center; color: #fff; }
+  .contact p { color: #d8d8de; font-size: 17px; }
+  .contact .mail { display: inline-block; margin-top: 20px; font-size: clamp(24px, 4vw, 34px); font-weight: 900; color: var(--pink); text-decoration: none; }
+
+  footer.foot { border-top: 1px solid var(--line); }
+  footer.foot .wrap { padding-top: 28px; padding-bottom: 36px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--sub); }
+  footer.foot b { color: var(--ink); font-weight: 900; }
+  footer.foot b span { color: var(--pink); }
+
+  @media (max-width: 860px) {
+    .features { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    nav a:not(.cta) { display: none; }
+    .brand small { display: none; }
+    .hero .wrap { padding-top: 56px; padding-bottom: 64px; }
+    .who, .features, .notes { grid-template-columns: 1fr; }
+    .flow ol { justify-content: flex-start; font-size: 15px; }
+    section.block { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><b>쓰담 <span>ẞDM</span></b><small>정부 지원사업 서류 도우미</small></a>
+    <nav>
+      <a href="#features">기능</a>
+      <a href="#faq">자주 묻는 질문</a>
+      <a class="cta" href="#contact">체험 신청</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>지원사업 서류 준비,<br><em>쓰담</em>이 함께해요</h1>
+    <p class="lead">받은 서류는 알아서 정리하고, 도장은 화면에서 바로 찍어요.<br>
+      처음 해 보시는 대표님도 쉽게 쓰실 수 있게 만들었어요.</p>
+    <div class="actions">
+      <a class="btn primary" href="#contact">체험 신청하기</a>
+      <a class="btn ghost" href="#features">무엇을 해 주나요?</a>
+    </div>
+  </div>
+</section>
+
+<div class="flow">
+  <div class="wrap">
+    <ol>
+      <li>공고 찾기</li>
+      <li>서류 모으기</li>
+      <li>정리·확인</li>
+      <li>도장 찍기</li>
+      <li>제출까지</li>
+    </ol>
+  </div>
+</div>
+
+<section class="block">
+  <div class="wrap">
+    <h2>이런 분께 좋아요</h2>
+    <div class="who">
+      <div><b>대표님</b>지원사업 서류가 처음이거나, 챙길 게 많아 막막한 분</div>
+      <div><b>실무 담당자</b>폴더 정리·도장·인력 서류에 시간을 많이 쓰는 분</div>
+      <div><b>작은 회사</b>서류 담당이 따로 없어 대표가 다 챙기는 곳</div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt" id="features">
+  <div class="wrap">
+    <h2>쓰담이 해 드리는 일</h2>
+    <div class="features">
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 7h6l2 2h10v10H3z"/><path d="M8 14h8"/></svg></div>
+        <h3>파일 자동 정리</h3>
+        <p>다운로드·카카오톡으로 받은 파일을 지원사업·이미지·정리폴더로 알아서 나눠요. 같은 파일은 한 번만 저장해요.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M5 20h14M8 16h8"/></svg></div>
+        <h3>도장·서명 찍기</h3>
+        <p>PDF·사진·워드·엑셀에 화면에서 바로 도장을 찍고 저장해요. 출력하고 스캔할 필요가 없어요.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></div>
+        <h3>공고 보기·준비 관리</h3>
+        <p>지원사업 공고를 보고 관심 공고를 모아요. 공고 첨부 서류는 사업 폴더로 바로 저장하고, 준비 상황을 한눈에 봐요.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+        <h3>참여 인력 정보 받기</h3>
+        <p>링크 하나 보내면 휴대폰으로 이력과 증명서를 올려 줘요. 동의 기간과 사업 참여 이력도 챙겨요.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M9 14l2 2 4-4"/></svg></div>
+        <h3>부대서류 확인</h3>
+        <p>사업자등록증·납세증명서 같은 서류의 글자를 읽어 발급일·유효기간을 확인해요. 기한 지난 서류를 미리 알려 줘요.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M9 11l-4 4a3 3 0 0 0 4 4l7-7a3 3 0 0 0-4-4l-6 6"/></svg></div>
+        <h3>클리퍼</h3>
+        <p>회사 안에서 파일을 잠깐 함께 나눠 써요. 메신저로 주고받다 잃어버리는 일이 줄어요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2>꼭 알아 두세요</h2>
+    <ul class="notes">
+      <li>파일 자동 정리·부대서류 확인은 <b>컴퓨터 앱</b>에서 돼요.</li>
+      <li>한글(HWP) 파일 도장은 <b>시험 단계</b>예요. 잘 안 되면 PDF로 저장해 올려 주세요.</li>
+      <li>지금은 지원사업 <b>제출까지</b>를 도와드려요.</li>
+      <li>가입은 이메일로 해요. 간편 로그인은 출시 뒤에 붙여요.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block alt" id="faq">
+  <div class="wrap">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq">
+      <details>
+        <summary>요금은 얼마예요?</summary>
+        <p>회사 단위로 쓰시는 요금제예요. 먼저 써 보실 수 있는 체험도 있어요. 자세한 금액은 메일로 안내드릴게요.</p>
+      </details>
+      <details>
+        <summary>체험은 어떻게 해요?</summary>
+        <p>메일로 신청해 주시면 체험 계정을 열어 드려요. 며칠 동안 써 보실 수 있어요. 체험 계정에서는 도장 찍기와 서류 글자 읽기가 제한돼요.</p>
+      </details>
+      <details>
+        <summary>휴대폰으로도 쓸 수 있어요?</summary>
+        <p>참여 인력 정보 받기는 휴대폰 링크로 돼요. 서류 정리와 도장 찍기는 컴퓨터 앱에서 하시는 게 좋아요.</p>
+      </details>
+      <details>
+        <summary>웹에서도 돼요?</summary>
+        <p>웹에서도 공고 보기·도장 찍기 등은 돼요. 다만 파일 자동 정리와 부대서류 확인, 한글 파일 도장은 컴퓨터 앱에서만 돼요.</p>
+      </details>
+      <details>
+        <summary>카카오·네이버 로그인 돼요?</summary>
+        <p>지금은 이메일로 가입하세요. 간편 로그인은 정식 출시 뒤에 붙일 예정이에요.</p>
+      </details>
+      <details>
+        <summary>선정된 뒤 협약·결과보고도 도와주나요?</summary>
+        <p>지금은 지원사업 제출까지를 도와드려요. 선정 뒤 서류는 도장 찍기 정도만 쓰실 수 있어요.</p>
+      </details>
+      <details>
+        <summary>제 서류가 밖으로 나가나요?</summary>
+        <p>파일 정리는 대표님 컴퓨터 안에서 해요. 저장 위치도 직접 정하실 수 있어요.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>먼저 써 보세요</h2>
+    <p>며칠 동안 먼저 써 보실 수 있어요.<br>체험 신청·요금 문의는 메일로 연락 주세요.</p>
+    <a class="mail" href="mailto:info@mysdm.org?subject=%EC%93%B0%EB%8B%B4%20%EC%B2%B4%ED%97%98%20%EC%8B%A0%EC%B2%AD">info@mysdm.org</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <span><b>쓰담 <span>ẞDM</span></b> · 어울림랩스</span>
+    <span>© 2026 어울림랩스</span>
+  </div>
+</footer>
+
+</body>
+</html>
