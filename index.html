@@ -124,6 +124,15 @@
   .notes li::before { content: "·"; position: absolute; left: 0; color: var(--pink); font-weight: 900; }
   .notes b { color: var(--ink); }
 
+  .usb { border: 2px solid var(--pink-line); border-radius: 18px; padding: 36px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 32px; align-items: start; }
+  .usb h2 { margin-bottom: 12px; }
+  .badge { display: inline-block; font-size: 13px; font-weight: 700; color: var(--pink); border: 1px solid var(--pink-line); border-radius: 999px; padding: 2px 12px; margin-bottom: 14px; }
+  .usb-lead { color: var(--sub); font-size: 17px; }
+  .usb-list { list-style: none; display: grid; gap: 14px; }
+  .usb-list li { padding-left: 18px; position: relative; color: var(--sub); font-size: 15.5px; }
+  .usb-list li::before { content: ""; position: absolute; left: 0; top: .65em; width: 7px; height: 7px; border-radius: 50%; background: var(--pink); }
+  .usb-list b { display: block; color: var(--ink); font-size: 16.5px; margin-bottom: 2px; }
+
   .faq { display: grid; gap: 12px; }
   details { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px; }
   summary { cursor: pointer; font-weight: 700; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
@@ -152,7 +161,8 @@
     nav a:not(.cta) { display: none; }
     .brand small { display: none; }
     .hero .wrap { padding-top: 56px; padding-bottom: 64px; }
-    .who, .features, .notes { grid-template-columns: 1fr; }
+    .who, .features, .notes, .usb { grid-template-columns: 1fr; }
+    .usb { padding: 24px 20px; gap: 20px; }
     .flow ol { justify-content: flex-start; font-size: 15px; }
     section.block { padding: 56px 0; }
   }
@@ -244,7 +254,26 @@
   </div>
 </section>
 
-<section class="block">
+<section class="block" id="usb">
+  <div class="wrap">
+    <div class="usb">
+      <div class="usb-head">
+        <span class="badge">USB 포터블판</span>
+        <h2>설치 없이, USB 하나로 쓰는 쓰담</h2>
+        <p class="usb-lead">USB를 꽂고 바로 실행하세요. 설치할 것이 없어요.</p>
+      </div>
+      <ul class="usb-list">
+        <li><b>설치 없이 바로 실행</b>쓰담에 필요한 프로그램(문서 변환 도구 등)이 USB 안에 함께 들어 있어요.</li>
+        <li><b>크기 약 2GB</b>16GB 이상 USB를 권장해요.</li>
+        <li><b>인터넷 연결이 필요해요</b>로그인과 자료가 온라인에 있어요.</li>
+        <li><b>내 설정은 USB에</b>로그인 상태와 설정은 USB에 남고, 꽂았던 컴퓨터에는 남지 않아요.</li>
+        <li><b>정리된 서류 저장 위치를 골라요</b>설정에서 "이 PC"(기본) 또는 "USB"를 고를 수 있어요. USB로 정하면 다른 컴퓨터에 꽂아도 정리된 서류를 그대로 이어서 쓸 수 있어요.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
   <div class="wrap">
     <h2>꼭 알아 두세요</h2>
     <ul class="notes">
@@ -256,7 +285,7 @@
   </div>
 </section>
 
-<section class="block alt" id="faq">
+<section class="block" id="faq">
   <div class="wrap">
     <h2>자주 묻는 질문</h2>
     <div class="faq">
